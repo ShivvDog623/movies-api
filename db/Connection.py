@@ -27,3 +27,5 @@ class Connection:
     
     def getCursor(self):
         return self.cur
+
+

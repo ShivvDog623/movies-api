@@ -1,14 +1,12 @@
 from flask import Blueprint, jsonify
 from app import db
+from doQuery import doQuery
 
+#get cursor and get connection
 conn = db.getConnection()
 cur = db.getCursor()
 
-def doQuery(sql, params):
-    cur.execute(sql , params)
-    result = cur.fetchone()
-    conn.commit()
-    return result
+
 
 
 
@@ -26,9 +24,8 @@ dbconn_blueprint = Blueprint('dbconn', __name__)
 
 @dbconn_blueprint.route('/dbconn', methods=['GET'])
 def get_dbconn():
-    
 
-    return '"DB : OK'
+    return "DB : OK"
 
 
 
