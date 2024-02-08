@@ -21,7 +21,7 @@ def get_dbconn():
     GET: returns database health
     """
     try:
-        sql = 'SELECT count(movie_id) cnt FROM movies.movie'
+        sql = 'SELECT CURRENT_TIMESTAMP'
         doQuery(sql, [])
         return 'DB : DB OK'
     except:

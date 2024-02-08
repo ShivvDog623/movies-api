@@ -3,3 +3,4 @@ blueprints/health/__pycache__
 __pycache__
 db/__pycache__
 .env
+blueprints/movies/__pycache__
