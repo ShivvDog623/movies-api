@@ -1,31 +1,31 @@
+"""
+Health Blueprint. Serves all health related endpoints.
+"""
 from flask import Blueprint, jsonify
 from app import db
 from doQuery import doQuery
-
-#get cursor and get connection
-conn = db.getConnection()
-cur = db.getCursor()
-
-
-
-
 
 health_blueprint = Blueprint('health', __name__)
 
 @health_blueprint.route('/health', methods=["GET"])
 def get_health():
-    
+    """
+    GET: returns api health
+    """
     message = "OK"
     return jsonify (message)
 
-
-
-dbconn_blueprint = Blueprint('dbconn', __name__)
-
-@dbconn_blueprint.route('/dbconn', methods=['GET'])
+@health_blueprint.route('/db-health', methods=['GET'])
 def get_dbconn():
-
-    return "DB : OK"
+    """
+    GET: returns database health
+    """
+    try:
+        sql = 'SELECT count(movie_id) cnt FROM movies.movie'
+        doQuery(sql, [])
+        return 'DB : DB OK'
+    except:
+        return 'DB : NOT OK'    
 
 
 

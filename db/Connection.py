@@ -7,20 +7,27 @@ class Connection:
     def __init__(self):
         self.conn = None
         self.cur = None
-        print('New connection created...')
+        
         self.setConnection()
 
     def setConnection(self):
         load_dotenv()
-        self.conn = psycopg2.connect(
-            host = os.getenv("DB_HOST"),
-            database = os.getenv("DATABASE"),
-            user = os.getenv("DB_USER"),
-            password = os.getenv("DB_PASSWORD"),
-            port = os.getenv("DB_PORT"))
-        self.cur = self.conn.cursor()
-        
-        self.cur = self.conn.cursor()
+        try:
+            self.conn = psycopg2.connect(
+                host = os.getenv("DB_HOST"),
+                database = os.getenv("DATABASE"),
+                user = os.getenv("DB_USER"),
+                password = os.getenv("DB_PASSWORD"),
+                port = os.getenv("DB_PORT"))
+            
+            print(os.getenv("DB_PASSWORD"))
+            self.cur = self.conn.cursor()
+            
+            self.cur = self.conn.cursor()
+            print('New connection created...')
+        except DatabaseError as e:
+            print("Database connection failed") 
+
 
     def getConnection(self):
         return self.conn
