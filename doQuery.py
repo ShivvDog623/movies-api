@@ -6,7 +6,6 @@ cur = db.getCursor()
 
 def doQuery(sql, params):
     cur.execute(sql, params)
-    result = cur.fetchone()
-    result2 = cur.fetchall()
+    result = cur.fetchall()
     conn.commit()
-    return result, result2
+    return result

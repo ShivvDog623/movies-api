@@ -14,9 +14,9 @@ def get_movies():
     """
     sql = "SELECT * FROM movies.movie"
     params = []
-    result2 = doQuery(sql, params)
+    result = doQuery(sql, params)
     movie_list = []
-    for record in result2:
+    for record in result:
         movie_list.append(record)
     return jsonify (movie_list)
 
