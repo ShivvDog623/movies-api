@@ -4,3 +4,4 @@ __pycache__
 db/__pycache__
 .env
 blueprints/movies/__pycache__
+blueprints/actors/__pycache__

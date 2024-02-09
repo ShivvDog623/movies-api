@@ -55,7 +55,7 @@ def update_movie(id):
 @movie_blueprint.route('/movies-remove/<int:id>', methods= ['DELETE'])
 def delete_movie(id):
     """
-    DELETE: Deletes data by id (be careful).
+    DELETE: Deletes movie by id (be careful).
     """
     sql = 'DELETE FROM movies.movie WHERE movie_id = %s RETURNING movie_id'
     params = [id]
