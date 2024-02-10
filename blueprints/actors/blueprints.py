@@ -5,57 +5,48 @@ Actors Blueprint. Serves actor table related endpoints.
 from flask import Blueprint, jsonify, request
 from app import db
 from doQuery import doQuery
+from .service import get_all_actors, get_by_id, create_new_actor, update_by_id, delete_by_id
 
+actor_blueprint = Blueprint('actor', __name__, url_prefix='/actor')
 
-actor_blueprint = Blueprint('actor', __name__)
-
-@actor_blueprint.route('/actor-data', methods=['GET'])
-def get_movies():
+@actor_blueprint.route('/all', methods=['GET'])
+def get_all():
     """
     GET: returns actors table data
     """
-    sql = "SELECT * FROM movies.actor"
-    params = []
-    result = doQuery(sql, params)
+    result = get_all_actors()
     actor_list = []
     for record in result:
         actor_list.append(record)
     return jsonify (actor_list)
 
 
-@actor_blueprint.route('/actor-create', methods= ['POST'])
-def create_actor():
+@actor_blueprint.route('/create', methods= ['POST'])
+def create():
     """
     POST: creates actor in actor table
     """
-    data = request.get_json()
-    first_name = data.get('first_name')
-    middle_name = data.get('middle_name')
-    last_name = data.get('last_name')
-    sql = 'INSERT INTO movies.actor (first_name, middle_name, last_name) VALUES (%s,%s,%s) RETURNING *'
-    params = [first_name, middle_name, last_name]
-    result = doQuery(sql, params)
-    print('result', result)
+    result = create_new_actor()
     return jsonify(result)
 
 
-@actor_blueprint.route('/actor-update/<int:id>', methods=['PUT'])
-def update_actor(id):
+@actor_blueprint.route('/<int:id>', methods=['GET'])
+def get_id(id):
+    result = get_by_id(id)
+    return jsonify(result)
+
+@actor_blueprint.route('/<int:id>', methods=['PUT'])
+def update_by_id(id):
     """
     PUT: updates actor by id
     """
-    sql = "UPDATE movies.actor SET first_name='Satyam' WHERE actor_id = %s RETURNING first_name"
-    params = [id]
-    result = doQuery(sql, params)
+    result = update_by_id(id)
     return jsonify(result)
 
-@actor_blueprint.route('/actor-remove/<int:id>', methods= ['DELETE'])
-def delete_actor(id):
+@actor_blueprint.route('/<int:id>', methods= ['DELETE'])
+def delete_by_id(id):
     """
     DELETE: Deletes actor by id (be careful).
     """
-    sql = 'DELETE FROM movies.actor WHERE actor_id = %s RETURNING actor_id'
-    params = [id]
-    result = doQuery(sql, params)
-    print('result', result)
+    result = delete_by_id(id)
     return jsonify(result)

@@ -26,7 +26,7 @@ class Connection:
             self.cur = self.conn.cursor()
             print('New connection created...')
         except DatabaseError as e:
-            print("Database connection failed") 
+            print("Database connection failed", e) 
 
 
     def getConnection(self):
