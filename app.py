@@ -17,11 +17,15 @@ def register_blueprint(app):
     from blueprints.health.blueprints import health_blueprint
     from blueprints.movies.blueprints import movie_blueprint
     from blueprints.actors.blueprints import actor_blueprint
-    
+    from blueprints.directors.blueprints import directors_blueprint
+
+
+
     #register blueprints
     app.register_blueprint(health_blueprint)
     app.register_blueprint(movie_blueprint)
     app.register_blueprint(actor_blueprint)
+    app.register_blueprint(directors_blueprint)
 
 
 def create_app():
