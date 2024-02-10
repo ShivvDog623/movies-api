@@ -5,11 +5,10 @@ def get_all():
     """
     SERVICE: returns all movies
     """
-    sql = "SELECT * FROM movies.movie"
+    sql = "SELECT * FROM movies.director"
     params = []
     result = doQuery(sql, params)
     return result
-
 
 
 def get_by_id(id):
