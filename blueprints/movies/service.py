@@ -5,7 +5,7 @@ def get_all():
     """
     SERVICE: returns all movies
     """
-    sql = "SELECT * FROM movies.director"
+    sql = "SELECT * FROM movies.movie"
     params = []
     result = doQuery(sql, params)
     return result
