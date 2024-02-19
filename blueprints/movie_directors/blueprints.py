@@ -1,5 +1,5 @@
 """
-Movie_Actor Blueprint. Serves movie_actor table related endpoints.
+Movie_Director Blueprint. Serves movie_actor table related endpoints.
 """
 
 from flask import Blueprint, jsonify, request
