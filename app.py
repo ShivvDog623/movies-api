@@ -20,7 +20,7 @@ def register_blueprint(app):
     from blueprints.directors.blueprints import directors_blueprint
     from blueprints.genre.blueprints import genre_blueprint 
     from blueprints.movie_actor.blueprints import movie_actor_blueprint
-
+    from blueprints.movie_directors.blueprints import movie_director_blueprint
 
     #register blueprints
     app.register_blueprint(health_blueprint)
@@ -29,6 +29,9 @@ def register_blueprint(app):
     app.register_blueprint(directors_blueprint)
     app.register_blueprint(genre_blueprint)
     app.register_blueprint(movie_actor_blueprint)
+    app.register_blueprint(movie_director_blueprint)
+
+    
 
 
 def create_app():

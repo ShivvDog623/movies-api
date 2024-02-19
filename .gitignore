@@ -7,3 +7,4 @@ blueprints/movies/__pycache__
 blueprints/actors/__pycache__
 blueprints/genre/__pycache__
 blueprints/movie_actor/__pycache__
+blueprints/movie_directors/__pycache__
