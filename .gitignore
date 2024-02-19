@@ -5,3 +5,5 @@ db/__pycache__
 .env
 blueprints/movies/__pycache__
 blueprints/actors/__pycache__
+blueprints/genre/__pycache__
+blueprints/movie_actor/__pycache__
