@@ -36,7 +36,7 @@ def get_id(id):
     return jsonify(result)
 
 @actor_blueprint.route('/<int:id>', methods=['PUT'])
-def update_by_id(id):
+def update_id(id):
     """
     PUT: updates actor by id
     """
@@ -44,7 +44,7 @@ def update_by_id(id):
     return jsonify(result)
 
 @actor_blueprint.route('/<int:id>', methods= ['DELETE'])
-def delete_by_id(id):
+def delete_id(id):
     """
     DELETE: Deletes actor by id (be careful).
     """
