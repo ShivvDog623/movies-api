@@ -38,6 +38,7 @@ def register_blueprint(app):
 def create_app():
     app = Flask(__name__)
     app.app_context().push()
+    app.json.sort_keys = False
 
 
 
