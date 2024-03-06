@@ -18,7 +18,7 @@ def register_blueprint(app):
     from blueprints.movies.blueprints import movie_blueprint
     from blueprints.actors.blueprints import actor_blueprint
     from blueprints.directors.blueprints import directors_blueprint
-    from blueprints.genre.blueprints import genre_blueprint 
+    from blueprints.genres.blueprints import genre_blueprint 
     from blueprints.movie_actor.blueprints import movie_actor_blueprint
     from blueprints.movie_directors.blueprints import movie_director_blueprint
     from blueprints.movie_genres.blueprints import movie_genre_blueprint
