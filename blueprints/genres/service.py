@@ -19,11 +19,11 @@ def get_id(id):
     result = doQuery(sql, params)
     return result
 
-def create_genre():
+def create_genre(data):
     """
     SERVICE: creates new genre in database table
     """
-    data = request.get_json()
+    
     genre = data.get('genre')
     sql = 'INSERT INTO movies.genre (genre) VALUES (%s) RETURNING *'
     params = [genre]

@@ -1,7 +1,7 @@
 """
 Genre Blueprint. Serves all genre table related endpoints
 """
-from flask import Blueprint, jsonify
+from flask import Blueprint, request
 from .service import get_all, get_id, create_genre, update_by_id, delete_by_id
 
 genre_blueprint = Blueprint('genre', __name__, url_prefix='/genre')
@@ -27,7 +27,8 @@ def create():
     """
     POST: creates genre in genre table
     """
-    result = create_genre()
+    data = request.get_json()
+    result = create_genre(data)
     return result
 
 
