@@ -14,7 +14,7 @@ def get():
     GET: returns movies table data
     """
     result = get_all()
-    return jsonify (result)
+    return result
 
 @movie_blueprint.route('/<int:id>', methods=['GET'])
 def get_id(id):
@@ -22,7 +22,7 @@ def get_id(id):
     GET: returns movie by id
     """
     result = get_by_id(id)
-    return jsonify (result)
+    return result
 
 @movie_blueprint.route('/filter/exact', methods=['POST'])
 def exact():
@@ -32,7 +32,7 @@ def exact():
     data = request.get_json()
     print(data)
     result = exact_search(data)
-    return jsonify(result)
+    return result
 
 
 @movie_blueprint.route('/create', methods= ['POST'])
@@ -42,7 +42,7 @@ def create():
     """
     data = request.get_json()
     result = create_movie(data)
-    return jsonify(result)
+    return result
 
 
 @movie_blueprint.route('/<int:id>', methods=['PUT'])
@@ -51,7 +51,7 @@ def update(id):
     PUT: updates movie title by id
     """
     result = update_by_id(id)
-    return jsonify(result)
+    return result
 
 @movie_blueprint.route('/<int:id>', methods= ['DELETE'])
 def delete(id):
@@ -59,5 +59,5 @@ def delete(id):
     DELETE: Deletes movie by id (be careful).
     """
     result = delete_by_id(id)
-    return jsonify(result)
+    return result
 
