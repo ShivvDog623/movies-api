@@ -1,10 +1,10 @@
 """
 Movie Blueprint. Serves all movies table related endpoints. 
 """
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 from app import db
 from doQuery import doQuery 
-from .service import get_all, get_by_id, create_movie, update_by_id, delete_by_id, exact_search
+from .service import get_all, get_id, create_movie, update_by_id, delete_by_id, exact_search
 
 movie_blueprint = Blueprint('movie', __name__, url_prefix='/movies')
 
@@ -17,7 +17,7 @@ def get():
     return result
 
 @movie_blueprint.route('/<int:id>', methods=['GET'])
-def get_id(id):
+def get_by_id(id):
     """
     GET: returns movie by id
     """
