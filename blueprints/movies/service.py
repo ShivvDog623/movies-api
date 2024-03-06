@@ -67,3 +67,17 @@ def exact_search(data):
     params = [title]
     result = doQuery(sql, params)
     return result
+
+def like_search(data):
+    title = data.get('title')
+    sql = "SELECT * FROM movies.movie WHERE title ILIKE %s"
+    params = ['%' + title + '%']
+    result = doQuery(sql, params)
+    return result
+
+def in_search(data):
+    title = data.get('title')
+    sql = "SELECT * FROM movies.movie WHERE title ILIKE ANY(%s)"
+    params = [title]
+    result = doQuery(sql, params)
+    return result

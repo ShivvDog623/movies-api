@@ -38,6 +38,9 @@ def register_blueprint(app):
 def create_app():
     app = Flask(__name__)
     app.app_context().push()
+
+
+
     register_blueprint(app)
     
     return app
