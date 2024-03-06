@@ -10,7 +10,7 @@ def get_all_movie_directors():
     result = doQuery(sql, params)
     return result
 
-def get_by_id(id):
+def get_id(id):
     """
     SERVICE: returns movie_director by director id
     """
