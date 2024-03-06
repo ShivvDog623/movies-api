@@ -1,6 +1,7 @@
 import os
 import psycopg2
 from psycopg2 import DatabaseError
+from psycopg2.extras import RealDictCursor
 from dotenv import load_dotenv
 
 class Connection:
@@ -21,9 +22,7 @@ class Connection:
                 port = os.getenv("DB_PORT"))
             
             print(os.getenv("DB_PASSWORD"))
-            self.cur = self.conn.cursor()
-            
-            self.cur = self.conn.cursor()
+            self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
             print('New connection created...')
         except DatabaseError as e:
             print("Database connection failed", e) 

@@ -1,5 +1,6 @@
 from doQuery import doQuery
 from flask import request
+import json
 
 def get_all():
     """
@@ -22,11 +23,10 @@ def get_by_id(id):
     return result
 
 
-def create_movie():
+def create_movie(data):
     """
     SERVICE: creates new movie in database table
     """
-    data = request.get_json()
     title = data.get('title')
     year = data.get('year')
     description = data.get('description')
@@ -52,12 +52,18 @@ def update_by_id(id):
     return result
 
 
-
 def delete_by_id(id):
     """
     SERVICE: Delete movie by id (Be careful)
     """
     sql = 'DELETE FROM movies.movie WHERE movie_id = %s RETURNING movie_id'
     params = [id]
+    result = doQuery(sql, params)
+    return result
+
+def exact_search(data):
+    title = data.get('title')
+    sql = 'SELECT * FROM movies.movie WHERE LOWER(title)=LOWER(%s)'
+    params = [title]
     result = doQuery(sql, params)
     return result

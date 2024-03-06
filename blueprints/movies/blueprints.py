@@ -4,7 +4,7 @@ Movie Blueprint. Serves all movies table related endpoints.
 from flask import Blueprint, jsonify, request
 from app import db
 from doQuery import doQuery 
-from .service import get_all, get_by_id, create_movie, update_by_id, delete_by_id
+from .service import get_all, get_by_id, create_movie, update_by_id, delete_by_id, exact_search
 
 movie_blueprint = Blueprint('movie', __name__, url_prefix='/movies')
 
@@ -24,13 +24,24 @@ def get_id(id):
     result = get_by_id(id)
     return jsonify (result)
 
+@movie_blueprint.route('/filter/exact', methods=['POST'])
+def exact():
+    """
+    GET: return movie by title
+    """
+    data = request.get_json()
+    print(data)
+    result = exact_search(data)
+    return jsonify(result)
+
+
 @movie_blueprint.route('/create', methods= ['POST'])
 def create():
     """
     POST: creates movie in movie table
     """
-    
-    result = create_movie()
+    data = request.get_json()
+    result = create_movie(data)
     return jsonify(result)
 
 

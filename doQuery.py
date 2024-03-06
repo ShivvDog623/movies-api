@@ -9,3 +9,4 @@ def doQuery(sql, params):
     result = cur.fetchall()
     conn.commit()
     return result
+
