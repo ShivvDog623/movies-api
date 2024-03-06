@@ -12,7 +12,7 @@ def get_all_actors():
 
     return result
 
-def get_by_id(id):
+def get_id(id):
     """
     SERVICE: returns actor by id
     """
@@ -21,11 +21,10 @@ def get_by_id(id):
     result = doQuery(sql, params)
     return result
 
-def create_new_actor():
+def create_new_actor(data):
     """
     SERVICE: creates new actor in database table
     """
-    data = request.get_json()
     first_name = data.get('first_name')
     middle_name = data.get('middle_name')
     last_name = data.get('last_name')
