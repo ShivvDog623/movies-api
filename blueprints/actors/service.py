@@ -50,3 +50,18 @@ def delete_by_id(id):
     params = [id]
     result = doQuery(sql, params) 
     return result 
+
+
+def get_actor_movies_id(id):
+    """
+    SERVICE: return movies that the actor was in by actor_id
+    """
+    sql =   """
+            SELECT * FROM movies.movie_actor
+            INNER JOIN movies.movie
+            ON movies.movie_actor.movie_id = movies.movie.movie_id
+            WHERE actor_id = %s 
+            """
+    params = [id]
+    result = doQuery(sql, params)
+    return result
