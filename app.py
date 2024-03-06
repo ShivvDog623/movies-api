@@ -21,7 +21,7 @@ def register_blueprint(app):
     from blueprints.genre.blueprints import genre_blueprint 
     from blueprints.movie_actor.blueprints import movie_actor_blueprint
     from blueprints.movie_directors.blueprints import movie_director_blueprint
-    from blueprints.movie_genre.blueprints import movie_genre_blueprint
+    from blueprints.movie_genres.blueprints import movie_genre_blueprint
 
     #register blueprints
     app.register_blueprint(health_blueprint)
@@ -38,9 +38,6 @@ def register_blueprint(app):
 def create_app():
     app = Flask(__name__)
     app.app_context().push()
-
-
-
     register_blueprint(app)
     
     return app
