@@ -1,8 +1,8 @@
 """
 Director Blueprint. Serves all director table related endpoints
 """
-from flask import Blueprint
-from .service import get_all, get_by_id, create_director, update_by_id, delete_by_id
+from flask import Blueprint, request
+from .service import get_all, get_id, create_director, update_by_id, delete_by_id
 
 directors_blueprint = Blueprint('director', __name__, url_prefix='/directors')
 
@@ -15,11 +15,11 @@ def get():
     return result
 
 @directors_blueprint.route('/<int:id>', methods=['GET'])
-def get_id(id):
+def get_by_id(id):
     """
     GET: returns director by id
     """
-    result = get_by_id(id)
+    result = get_id(id)
     return result
 
 @directors_blueprint.route('/create', methods= ['POST'])
@@ -27,7 +27,8 @@ def create():
     """
     POST: creates director in director table
     """
-    result = create_director()
+    data = request.get_json()
+    result = create_director(data)
     return result
 
 

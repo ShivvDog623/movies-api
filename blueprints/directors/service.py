@@ -10,7 +10,7 @@ def get_all():
     result = doQuery(sql, params)
     return result
 
-def get_by_id(id):
+def get_id(id):
     """
     SERVICE: returns director by id
     """
@@ -19,11 +19,10 @@ def get_by_id(id):
     result = doQuery(sql, params)
     return result
 
-def create_director():
+def create_director(data):
     """
     SERVICE: creates new director in database table
     """
-    data = request.get_json()
     first_name = data.get('first_name')
     middle_name = data.get('middle_name')
     last_name = data.get('last_name')
