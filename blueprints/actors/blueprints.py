@@ -5,7 +5,7 @@ Actors Blueprint. Serves actor table related endpoints.
 from flask import Blueprint, jsonify, request
 from app import db
 from doQuery import doQuery
-from .service import get_all_actors, get_id, create_new_actor, update_by_id, delete_by_id
+from .service import get_all_actors, get_id, create_new_actor, update_by_id, delete_by_id, get_actor_movies_id 
 
 actor_blueprint = Blueprint('actor', __name__, url_prefix='/actor')
 
@@ -30,6 +30,10 @@ def create():
     result = create_new_actor(data)
     return result
 
+@actor_blueprint.route('/movies/<int:id>', methods=['GET'])
+def actor_movies_by_id(id):
+    result = get_actor_movies_id(id)
+    return result
 
 @actor_blueprint.route('/<int:id>', methods=['GET'])
 def get_by_id(id):
