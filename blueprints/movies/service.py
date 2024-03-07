@@ -81,3 +81,39 @@ def in_search(data):
     params = [title]
     result = doQuery(sql, params)
     return result
+
+def movie_directors_by_id(id):
+    """
+    SERVICE: returns director and movie data by movie_id
+    """
+    sql =   """
+            SELECT * FROM movies.movie_director
+            INNER JOIN movies.director
+            ON movies.movie_director.director_id = movies.director.director_id
+            INNER JOIN movies.movie
+            ON movies.movie.movie_id = movies.movie_director.movie_id
+            WHERE movies.movie.movie_id = %s
+            """
+    params = [id]
+    result = doQuery(sql, params)
+    return result
+
+
+def movie_actors_by_id(id):
+    """
+    SERVICE: returns director and movie data by movie_id
+    """
+    sql =   """
+            SELECT * FROM movies.movie_actor 
+            FULL JOIN movies.actor
+            ON movies.movie_actor.actor_id = movies.actor.actor_id
+            FULL JOIN movies.movie
+            ON movies.movie.movie_id = movies.movie_actor.movie_id
+            WHERE movies.movie.movie_id = %s
+
+            """
+    params = [id]
+    result = doQuery(sql, params)
+    return result
+
+    
