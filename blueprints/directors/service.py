@@ -19,6 +19,21 @@ def get_id(id):
     result = doQuery(sql, params)
     return result
 
+def get_movie_directors_by_id(id):
+    """
+    SERVICE: returns movie data by director id
+    """
+    sql =   """
+            SELECT * FROM movies.movie_director
+            INNER JOIN movies.movie
+            ON movies.movie_director.movie_id = movies.movie.movie_id
+            WHERE director_id = %s 
+            """
+    params = [id]
+    result = doQuery(sql, params)
+    return result
+
+
 def create_director(data):
     """
     SERVICE: creates new director in database table
