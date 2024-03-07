@@ -2,7 +2,7 @@
 Director Blueprint. Serves all director table related endpoints
 """
 from flask import Blueprint, request
-from .service import get_all, get_id, create_director, update_by_id, delete_by_id
+from .service import get_all, get_id, create_director, update_by_id, delete_by_id, get_movie_directors_by_id
 
 directors_blueprint = Blueprint('director', __name__, url_prefix='/directors')
 
@@ -31,6 +31,14 @@ def create():
     result = create_director(data)
     return result
 
+
+@directors_blueprint.route('/movies/<int:id>', methods=['GET'])
+def movie_director(id):
+    """
+    GET: returns all movie data by director_id 
+    """
+    result = get_movie_directors_by_id(id)
+    return result
 
 @directors_blueprint.route('/<int:id>', methods=['PUT'])
 def update(id):
