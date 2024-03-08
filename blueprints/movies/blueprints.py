@@ -2,9 +2,21 @@
 Movie Blueprint. Serves all movies table related endpoints. 
 """
 from flask import Blueprint, request
-from app import db
-from doQuery import doQuery 
-from .service import get_all, get_id, create_movie, update_by_id, delete_by_id, exact_search, like_search, in_search, movie_directors_by_id, movie_actors_by_id
+from pydantic import BaseModel
+from flask_pydantic import validate
+
+from .service import (
+    get_all,
+    get_id, 
+    create_movie, 
+    update_by_id, 
+    delete_by_id, 
+    exact_search, 
+    like_search, 
+    in_search, 
+    movie_directors_by_id, 
+    movie_actors_by_id
+)
 
 movie_blueprint = Blueprint('movie', __name__, url_prefix='/movies')
 
