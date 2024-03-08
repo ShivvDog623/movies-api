@@ -4,3 +4,4 @@ python-dotenv
 pylint
 black
 pydantic
+flask-pydantic
