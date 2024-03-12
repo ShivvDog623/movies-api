@@ -1,7 +1,7 @@
 """
 Movie Blueprint. Serves all movies table related endpoints. 
 """
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from pydantic import BaseModel
 from flask_pydantic import validate
 
@@ -20,21 +20,81 @@ from .service import (
 
 movie_blueprint = Blueprint('movie', __name__, url_prefix='/movies')
 
+class MovieItem(BaseModel):
+    """movie item data model"""
+    title: str 
+    year: int
+    description: str
+    time: int
+    rating: float
+    vote: int
+    revenue: float
+    metascore: int
+
+class MovieDataModel(BaseModel):
+    """movie data model"""
+    movie_id: int
+    title: str 
+    year: int
+    description: str
+    time: int
+    rating: float
+    vote: int
+    revenue: float
+    metascore: int
+
+class MessageModel(BaseModel):
+    """generic message model"""
+    message: str
+
+
+class ResponseModel(BaseModel):
+    """movie response data model"""
+    status: int | str
+    data: list[MovieDataModel | MessageModel]
+
+class FieldValueModel(BaseModel):
+    """movie field and value model"""
+    field: str
+    value: str | int | float | bool
+
+class PatchModel(BaseModel):
+    """movie search and patch model"""
+    fields: list[FieldValueModel]
+
+class ValueModel(BaseModel):
+    """movie values model"""
+    value: str | int | float | bool
+
+class InModel(BaseModel):
+    """movie search model"""
+    field: str
+    values: list[ValueModel]
+
+class PostModel(BaseModel):
+    """new movie model"""
+    status: str | int
+
+
 @movie_blueprint.route('/all', methods=['GET'])
+@validate()
 def get():
     """
     GET: returns movies table data
     """
     result = get_all()
-    return result
+    print(result)
+    return ResponseModel(status=result["status"], data=result["data"])
 
 @movie_blueprint.route('/<int:id>', methods=['GET'])
+@validate()
 def get_by_id(id):
     """
     GET: returns movie by id
     """
     result = get_id(id)
-    return result
+    # return result
+    return ResponseModel(status=result["status"], data=result["data"])
 
 
 @movie_blueprint.route('/directors/<int:id>', methods=['GET'])
@@ -59,7 +119,6 @@ def filter_exact():
     POST: return movie data by exact title (lower or upper)
     """
     data = request.get_json()
-    print(data)
     result = exact_search(data)
     return result
 
@@ -90,6 +149,7 @@ def create():
     data = request.get_json()
     result = create_movie(data)
     return result
+
 
 
 @movie_blueprint.route('/<int:id>', methods=['PUT'])
