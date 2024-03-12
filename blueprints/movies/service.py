@@ -2,6 +2,7 @@ from doQuery import doQuery
 from flask import request
 import json
 
+
 def get_all():
     """
     SERVICE: returns all movies
@@ -19,7 +20,7 @@ def get_id(id):
     sql = "SELECT * FROM movies.movie WHERE movie_id = %s"
     params = [id]
     result = doQuery(sql, params)
-    
+    print(result)
     return result
 
 
