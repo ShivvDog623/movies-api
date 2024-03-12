@@ -8,5 +8,4 @@ def doQuery(sql, params):
     cur.execute(sql, params)
     result = cur.fetchall()
     conn.commit()
-    return result
-
+    return  {"status": 200, "data": result} 
