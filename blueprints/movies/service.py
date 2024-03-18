@@ -43,12 +43,31 @@ def create_movie(data):
 
 
 
-def update_by_id(id):
+def update_by_id(id, data):
     """
     SERVICE: Update movie by id
     """
-    sql = "UPDATE movies.movie SET title='MoneyBag' WHERE movie_id =%s RETURNING title"
-    params = [id]
+    title = data.get('title')
+    year = data.get('year')
+    description = data.get('description')
+    time = data.get('time')
+    rating = data.get('rating')
+    vote = data.get('vote')
+    revenue = data.get('revenue')
+    metascore = data.get('metascore')
+    sql = """
+    UPDATE movies.movie 
+        SET title=%s, 
+        year= %s, 
+        description= %s, 
+        time= %s, 
+        rating= %s, 
+        vote= %s, 
+        revenue= %s, 
+        metascore= %s 
+    WHERE movie_id =%s RETURNING *
+    """
+    params = [title, year, description, time, rating, vote, revenue, metascore, id]
     result = doQuery(sql, params)
     return result
 
@@ -57,7 +76,7 @@ def delete_by_id(id):
     """
     SERVICE: Delete movie by id (Be careful)
     """
-    sql = 'DELETE FROM movies.movie WHERE movie_id = %s RETURNING movie_id'
+    sql = 'DELETE FROM movies.movie WHERE movie_id = %s RETURNING *'
     params = [id]
     result = doQuery(sql, params)
     return result
@@ -77,11 +96,20 @@ def like_search(data):
     return result
 
 def in_search(data):
-    title = data.get('title')
-    sql = "SELECT * FROM movies.movie WHERE title ILIKE ANY(%s)"
-    params = [title]
-    result = doQuery(sql, params)
+    field = data.get('field')
+    values = data.get('values')
+
+    for idx, value in enumerate(values):
+        val = value["value"]
+        if idx == 0:
+            in_clause = f"'{val}'"
+        else:
+            in_clause = f"{in_clause},'{val}'" 
+
+    sql = f"SELECT * FROM movies.movie WHERE {field} IN ({in_clause})"
+    result = doQuery(sql, [])
     return result
+
 
 def movie_directors_by_id(id):
     """
@@ -102,7 +130,7 @@ def movie_directors_by_id(id):
 
 def movie_actors_by_id(id):
     """
-    SERVICE: returns director and movie data by movie_id
+    SERVICE: returns actors and movie data by movie_id
     """
     sql =   """
             SELECT * FROM movies.movie_actor 
@@ -116,5 +144,26 @@ def movie_actors_by_id(id):
     params = [id]
     result = doQuery(sql, params)
     return result
+
+
+def movie_genres_by_id(id):
+    """
+    SERVICE: returns genres and movie by movie_id
+    """
+
+    sql =   """
+            SELECT * FROM movies.movie_genre 
+            FULL JOIN movies.genre
+            ON movies.movie_genre.genre_id = movies.genre.genre_id
+            FULL JOIN movies.movie
+            ON movies.movie.movie_id = movies.movie_genre.movie_id
+            WHERE movies.movie.movie_id = %s
+            """
+    
+    params = [id]
+    result = doQuery(sql, params)
+    return result
+
+
 
     
