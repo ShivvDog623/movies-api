@@ -36,6 +36,21 @@ class ActorDataModel(BaseModel):
     middle_name: Optional[str] = None
     last_name: Optional[str] = None
 
+class ActorMovieDataModel(BaseModel):
+    actor_id: int
+    first_name: Optional[str] = None
+    middle_name: Optional[str] = None
+    last_name: Optional[str] = None
+    movie_id: int
+    title: str 
+    year: int
+    description: str
+    time: int
+    rating: float
+    vote: int
+    revenue: float
+    metascore: int
+
 class MessageModel(BaseModel):
     """generic message model"""
     message: str
@@ -44,6 +59,11 @@ class ActorResponseModel(BaseModel):
     """actor response data model"""
     status: int | str
     data: list[ActorDataModel | MessageModel]
+
+class ActorMovieResponseModel(BaseModel):
+    """actor and movie response date model"""
+    status: int | str
+    data: list[ActorMovieDataModel | MessageModel]  
 
 class FieldValueModel(BaseModel):
     """actor field and value model"""
@@ -73,19 +93,25 @@ def get_all():
     return ActorResponseModel(status=result["status"], data=result["data"])
 
 @actor_blueprint.route('/<int:id>', methods=['GET'])
+@validate()
 def get_by_id(id):
     result = get_id(id)
     return ActorResponseModel(status=result["status"], data=result["data"])
 
 
 @actor_blueprint.route('/create', methods= ['POST'])
+@validate(body=ActorItem)
 def create():
     """
     POST: creates actor in actor table
     """
     data = request.get_json()
     result = create_new_actor(data)
-    return result
+    if (result["status"] == 200):
+        status = 201
+    else:
+        status = result["status"]
+    return PostModel(status=status)
 
 @actor_blueprint.route('/<int:id>', methods=['PUT'])
 def update_id(id):
@@ -96,17 +122,19 @@ def update_id(id):
     return jsonify(result)
 
 @actor_blueprint.route('/<int:id>', methods= ['DELETE'])
+@validate()
 def delete_id(id):
     """
     DELETE: Deletes actor by id (be careful).
     """
     result = delete_by_id(id)
-    return jsonify(result)
+    return ActorResponseModel(status=result["status"], data=result["data"])
 
 @actor_blueprint.route('/movies/<int:id>', methods= ['GET'])
+@validate()
 def actor_movie(id):
     """
     GET: returns actor and movie data by actor_id
     """
     result = get_actor_movies_id(id)
-    return result
+    return ActorMovieResponseModel(status=result["status"], data=result["data"])
