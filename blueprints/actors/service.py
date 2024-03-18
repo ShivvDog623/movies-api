@@ -12,7 +12,7 @@ def get_all_actors():
 
     return result
 
-def get_id(id):
+def get_by_id(id):
     """
     SERVICE: returns actor by id
     """
