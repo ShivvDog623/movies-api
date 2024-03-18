@@ -3,16 +3,17 @@ Actors Blueprint. Serves actor table related endpoints.
 """
 from typing import Optional
 from pydantic import BaseModel
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_pydantic import validate
 
 
 from .service import (
     get_all_actors, 
-    get_by_id, 
+    get_id, 
     create_new_actor, 
     update_by_id, 
-    delete_by_id
+    delete_by_id,
+    get_actor_movies_id
 )
 
 from flask import Blueprint, jsonify, request
@@ -71,6 +72,10 @@ def get_all():
     result = get_all_actors()
     return ActorResponseModel(status=result["status"], data=result["data"])
 
+@actor_blueprint.route('/<int:id>', methods=['GET'])
+def get_by_id(id):
+    result = get_id(id)
+    return ActorResponseModel(status=result["status"], data=result["data"])
 
 
 @actor_blueprint.route('/create', methods= ['POST'])
@@ -81,12 +86,6 @@ def create():
     data = request.get_json()
     result = create_new_actor(data)
     return result
-
-
-@actor_blueprint.route('/<int:id>', methods=['GET'])
-def get_id(id):
-    result = get_by_id(id)
-    return jsonify(result)
 
 @actor_blueprint.route('/<int:id>', methods=['PUT'])
 def update_id(id):
@@ -103,3 +102,11 @@ def delete_id(id):
     """
     result = delete_by_id(id)
     return jsonify(result)
+
+@actor_blueprint.route('/movies/<int:id>', methods= ['GET'])
+def actor_movie(id):
+    """
+    GET: returns actor and movie data by actor_id
+    """
+    result = get_actor_movies_id(id)
+    return result

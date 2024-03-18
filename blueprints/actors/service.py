@@ -12,7 +12,7 @@ def get_all_actors():
 
     return result
 
-def get_by_id(id):
+def get_id(id):
     """
     SERVICE: returns actor by id
     """
@@ -58,9 +58,11 @@ def get_actor_movies_id(id):
     """
     sql =   """
             SELECT * FROM movies.movie_actor
+            INNER JOIN movies.actor
+            ON movies.movie_actor.actor_id = movies.actor.actor_id
             INNER JOIN movies.movie
-            ON movies.movie_actor.movie_id = movies.movie.movie_id
-            WHERE actor_id = %s 
+            ON movies.movie.movie_id = movies.movie_actor.movie_id
+            WHERE movies.actor.actor_id = %s
             """
     params = [id]
     result = doQuery(sql, params)
