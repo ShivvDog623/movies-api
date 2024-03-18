@@ -33,12 +33,21 @@ def create_new_actor(data):
     result = doQuery(sql, params)
     return result
 
-def update_by_id(id):
+def update_by_id(id, data):
     """
     SERVICE: Update actor by id
     """
-    sql = "UPDATE movies.actor SET first_name='Satyam' WHERE actor_id = %s RETURNING first_name"
-    params = [id]
+    first_name = data.get('first_name')
+    middle_name = data.get('middle_name')
+    last_name = data.get('last_name')
+    sql =   """
+            UPDATE movies.actor 
+            SET first_name= %s,
+            middle_name = %s,
+            last_name = %s 
+            WHERE actor_id = %s 
+            RETURNING *"""
+    params = [first_name, middle_name, last_name, id]
     result = doQuery(sql, params)
     return result
 

@@ -26,7 +26,7 @@ actor_blueprint = Blueprint('actor', __name__, url_prefix='/actor')
 class ActorItem(BaseModel):
     """actor item data model"""
     first_name: str
-    middle_name: str
+    middle_name: Optional[str] = None
     last_name: str
 
 class ActorDataModel(BaseModel):
@@ -114,12 +114,18 @@ def create():
     return PostModel(status=status)
 
 @actor_blueprint.route('/<int:id>', methods=['PUT'])
+@validate(body=ActorItem)
 def update_id(id):
     """
     PUT: updates actor by id
     """
-    result = update_by_id(id)
-    return jsonify(result)
+    data = request.get_json()
+    result = update_by_id(id, data)
+    
+    if (result["status"] == 204):
+        return MessageModel(status=result["status"], message=result["message"])
+    return ActorResponseModel(status=result["status"], data=result["data"])
+
 
 @actor_blueprint.route('/<int:id>', methods= ['DELETE'])
 @validate()
