@@ -16,11 +16,6 @@ from .service import (
     get_actor_movies_id
 )
 
-from flask import Blueprint, jsonify, request
-from app import db
-from doQuery import doQuery
-from .service import get_all_actors, get_by_id, create_new_actor, update_by_id, delete_by_id, get_actor_movies_id 
-
 actor_blueprint = Blueprint('actor', __name__, url_prefix='/actor')
 
 class ActorItem(BaseModel):
