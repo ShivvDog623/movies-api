@@ -24,6 +24,22 @@ class Movie_ActorDataModel(BaseModel):
     actor_id : int
     movie_id : int
 
+class Movie_Actor_FullDataModel(BaseModel):
+    actor_id : int
+    movie_id : int
+    first_name: str
+    middle_name: Optional[str] = None
+    last_name: str
+    title: str 
+    year: int
+    description: str
+    time: int
+    rating: float
+    vote: int
+    revenue: float
+    metascore: int
+    
+
 class MessageModel(BaseModel):
     """generic message model"""
     message: str
@@ -34,6 +50,9 @@ class Movie_ActorResponseModel(BaseModel):
     status: int | str
     data: list[Movie_ActorDataModel | MessageModel]
 
+class Movie_Actor_FullResponsemodel(BaseModel):
+    status: int | str
+    data: list[Movie_Actor_FullDataModel| MessageModel]
 
 class FieldValueModel(BaseModel):
     """movie_actor field and value model"""
@@ -76,4 +95,4 @@ def get_by_id(id):
     GET: returns movie_actor table data by actor_id
     """
     result = get_id(id)
-    return Movie_ActorResponseModel(status=result["status"], data=result["data"])
+    return Movie_Actor_FullResponsemodel(status=result["status"], data=result["data"])
