@@ -14,7 +14,14 @@ def get_id(id):
     """
     SERVICE: returns movie_genre by genre id
     """
-    sql = "SELECT * FROM movies.movie_genre WHERE genre_id = %s"
+    sql =   """
+            SELECT * FROM movies.movie_genre 
+            FULL JOIN movies.genre
+            ON movies.movie_genre.genre_id = movies.genre.genre_id
+            FULL JOIN movies.movie
+            ON movies.movie.movie_id = movies.movie_genre.movie_id
+            WHERE movies.genre.genre_id = %s
+            """
     params = [id]
     result = doQuery(sql, params)
     return result

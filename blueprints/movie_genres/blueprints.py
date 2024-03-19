@@ -24,6 +24,20 @@ class Movie_GenreDataModel(BaseModel):
     genre_id : int
     movie_id : int
 
+class Movie_Genre_FullDataModel(BaseModel):
+    """movie_genre_full data model"""
+    genre_id: int
+    movie_id: int
+    genre: str
+    title: str 
+    year: int
+    description: str
+    time: int
+    rating: float
+    vote: int
+    revenue: float
+    metascore: int
+
 class MessageModel(BaseModel):
     """generic message model"""
     message: str
@@ -34,6 +48,10 @@ class Movie_GenreResponseModel(BaseModel):
     status: int | str
     data: list[Movie_GenreDataModel | MessageModel]
 
+class Movie_Genre_FullResponseModel(BaseModel):
+    """ movie_genre_full response data model"""
+    status: int | str
+    data: list[Movie_Genre_FullDataModel | MessageModel]
 
 class FieldValueModel(BaseModel):
     """movie_genre field and value model"""
@@ -69,4 +87,4 @@ def get_by_id(id):
     GET: returns movie_genre table data by genre_id
     """
     result = get_id(id)
-    return Movie_GenreResponseModel(status=result["status"], data=result["data"])
+    return Movie_Genre_FullResponseModel(status=result["status"], data=result["data"])
