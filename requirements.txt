@@ -5,3 +5,4 @@ pylint
 black
 pydantic
 flask-pydantic
+flask-swagger-ui
