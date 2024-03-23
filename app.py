@@ -61,7 +61,8 @@ def create_app():
     )
 
 
-
+    
+    register_blueprint(app)
     app.register_blueprint(swaggerui_blueprint)
     
     return app
