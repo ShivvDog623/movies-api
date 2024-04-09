@@ -6,3 +6,4 @@ black
 pydantic
 flask-pydantic
 flask-swagger-ui
+flask-cors
