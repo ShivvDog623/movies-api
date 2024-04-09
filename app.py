@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from db.Connection import Connection
 from flask_swagger_ui import get_swaggerui_blueprint
+from flask_cors import CORS 
 
 conn = None
 cur = None
@@ -39,6 +40,7 @@ def create_app():
     app = Flask(__name__)
     app.app_context().push()
     app.json.sort_keys = False
+    CORS(app)
 
     SWAGGER_URL = '/api/docs'  # URL for exposing Swagger UI (without trailing '/')
     API_URL = 'http://petstore.swagger.io/v2/swagger.json'  # Our API url (can of course be a local resource)
