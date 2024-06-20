@@ -30,4 +30,5 @@ def get_dbconn():
 
 @health_blueprint.route('/')
 def home():
+    """Blueprint Will make static html file with flask"""
     return current_app.send_static_file('index.html')

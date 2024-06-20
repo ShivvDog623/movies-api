@@ -52,7 +52,6 @@ class PostModel(BaseModel):
     status: int | str
 
 
-
 @genre_blueprint.route('/all', methods=['GET'])
 @validate()
 def get():

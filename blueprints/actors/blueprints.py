@@ -32,6 +32,7 @@ class ActorDataModel(BaseModel):
     last_name: Optional[str] = None
 
 class ActorMovieDataModel(BaseModel):
+    """actor movie data model"""
     actor_id: int
     first_name: Optional[str] = None
     middle_name: Optional[str] = None

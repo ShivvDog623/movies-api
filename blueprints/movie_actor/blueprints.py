@@ -25,6 +25,7 @@ class Movie_ActorDataModel(BaseModel):
     movie_id : int
 
 class Movie_Actor_FullDataModel(BaseModel):
+    """movie_actor_full data model"""
     actor_id : int
     movie_id : int
     first_name: str
