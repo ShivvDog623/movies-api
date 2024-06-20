@@ -1,0 +1,58 @@
+table,
+tr,
+th,
+td,
+caption {
+
+    font-family: 'Courier New', Courier, monospace;
+}
+
+
+
+caption {
+    font-size: 30px;
+
+}
+
+
+th {
+
+    font-size: 22px;
+
+}
+
+tr {
+    font-size: 17px;
+}
+
+
+.custom-bg {
+    background-color: #d5eeff;
+}
+
+.custom-text {
+    color: black;
+}
+
+
+.rubik-header {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 450;
+    font-style: normal;
+}
+
+
+.header {
+    background-color: #393e46;
+    padding: 7px;
+    text-align: center;
+}
+
+.header h1 {
+    color: white;
+    padding: 3px 4px;
+    border: 5px solid white;
+    border-radius: 10px;
+    display: inline-block;
+}

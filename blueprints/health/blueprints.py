@@ -1,7 +1,7 @@
 """
 Health Blueprint. Serves all health related endpoints.
 """
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, current_app
 from app import db
 from doQuery import doQuery
 
@@ -28,4 +28,6 @@ def get_dbconn():
         return 'DB : NOT OK'    
 
 
-
+@health_blueprint.route('/')
+def home():
+    return current_app.send_static_file('index.html')

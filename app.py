@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request
 from db.Connection import Connection
 from flask_swagger_ui import get_swaggerui_blueprint
-from flask_cors import CORS 
+from flask_cors import CORS
+from flask import render_template 
+
 
 conn = None
 cur = None
@@ -60,6 +62,8 @@ def create_app():
         #    'scopeSeparator': " ",
         #    'additionalQueryStringParams': {'test': "hello"}
         # }
+    
+
     )
 
 
