@@ -6,7 +6,7 @@ Author - Shivam Patel
 
 ---
 
-### Descripition
+### Description
 
 Using the knowledge from the last couple months on ER-diagrams and API's from my mentor. I am proud to create my first git repo. This repository includes an API that I created to handle numerous amounts of movie data and to fetch information from the database. This API contains all CRUD (create, read, update, delete) routes and was established using Python Flask. The data is fetched from the backend using Python and then shown in the frontend using JavaScript and HTML5.
 
