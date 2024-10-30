@@ -7,3 +7,6 @@ pydantic
 flask-pydantic
 flask-swagger-ui
 flask-cors
+pytest
+faker
+pytest-mocker
