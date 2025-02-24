@@ -138,11 +138,11 @@ def fake_id():
 
 
 @pytest.fixture
-def fake_ids():
+def multi_fake_ids():
     """
     fake id(s)
     """
-    return "1"
+    return "1, 2"
 
 
 def test_svc_get_all_movies(mocker, fake_data):
@@ -356,7 +356,7 @@ def test_svc_exact_search(mocker, fake_data, fields_payload):
     assert data[0]["metascore"] == fake_data["metascore"]
 
 
-def test_svc_movie_directors_by_id(mocker, fake_movie_director_data, fields_payload, fake_id):
+def test_svc_movie_directors_by_id(mocker, fake_movie_director_data, fields_payload, fake_id, fake_data):
     """
     test service to return director and movie data by movie_id
     """
@@ -365,7 +365,7 @@ def test_svc_movie_directors_by_id(mocker, fake_movie_director_data, fields_payl
     mocker_sql.return_value = {"status": 200, "data" : [fake_data]}
 
     # Mock `movie_directors_by_id` to return the result of `doQuery`
-    mocker.patch.object(service, "movie_directors_by_id", return_value=mocker_sql.return_value)
+    mocker.patch.object(service, "movie_directors_by_id", return_value={"status": 200, "data": [fake_movie_director_data]})
 
 
     result = service.movie_directors_by_id(fields_payload, fake_id)
@@ -389,3 +389,39 @@ def test_svc_movie_directors_by_id(mocker, fake_movie_director_data, fields_payl
     assert data[0]["vote"] == fake_movie_director_data["vote"]
     assert data[0]["revenue"] == fake_movie_director_data["revenue"]
     assert data[0]["metascore"] == fake_movie_director_data["metascore"]
+
+
+
+def test_svc_movie_actors_by_id(mocker, fake_movie_actor_data, fields_payload, fake_id, fake_data):
+    """
+    test service to return actor and movie data by movie_id
+    """
+    # Mock `doQuery` to return data
+    mocker_sql = mocker.patch.object(service, "doQuery")
+    mocker_sql.return_value = {"status": 200, "data" : [fake_data]}
+
+    # Mock `movie_actors_by_id` to return the result of `doQuery`
+    mocker.patch.object(service, "movie_actors_by_id", return_value={"status": 200, "data": [fake_movie_actor_data]})
+
+
+    result = service.movie_actors_by_id(fields_payload, fake_id)
+    data = result["data"]
+    status = result["status"]
+
+    # assertions
+    assert isinstance(data, list)
+    assert status == 200
+
+    assert data[0]["movie_id"] == fake_movie_actor_data["movie_id"]
+    assert data[0]["actor_id"] == fake_movie_actor_data["actor_id"]
+    assert data[0]["first_name"] == fake_movie_actor_data["first_name"]
+    assert data[0]["middle_name"] == fake_movie_actor_data["middle_name"]
+    assert data[0]["last_name"] == fake_movie_actor_data["last_name"]
+    assert data[0]["title"] == fake_movie_actor_data["title"]
+    assert data[0]["year"] == fake_movie_actor_data["year"]
+    assert data[0]["description"] == fake_movie_actor_data["description"]
+    assert data[0]["time"] == fake_movie_actor_data["time"]
+    assert data[0]["rating"] == fake_movie_actor_data["rating"]
+    assert data[0]["vote"] == fake_movie_actor_data["vote"]
+    assert data[0]["revenue"] == fake_movie_actor_data["revenue"]
+    assert data[0]["metascore"] == fake_movie_actor_data["metascore"]
