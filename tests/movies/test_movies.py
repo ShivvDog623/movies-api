@@ -425,3 +425,35 @@ def test_svc_movie_actors_by_id(mocker, fake_movie_actor_data, fields_payload, f
     assert data[0]["vote"] == fake_movie_actor_data["vote"]
     assert data[0]["revenue"] == fake_movie_actor_data["revenue"]
     assert data[0]["metascore"] == fake_movie_actor_data["metascore"]
+
+
+def test_svc_movie_genres_by_id(mocker, fake_movie_genre_data, fields_payload, fake_id, fake_data):
+    """
+    test service to return genre and movie data by movie_id
+    """
+    # Mock `doQuery` to return data
+    mocker_sql = mocker.patch.object(service, "doQuery")
+    mocker_sql.return_value = {"status": 200, "data" : [fake_data]}
+
+    # Mock `movie_genres_by_id` to return the result of `doQuery`
+    mocker.patch.object(service, "movie_genres_by_id", return_value={"status": 200, "data": [fake_movie_genre_data]})
+
+
+    result = service.movie_genres_by_id(fields_payload, fake_id)
+    data = result["data"]
+    status = result["status"]
+
+    # assertions
+    assert isinstance(data, list)
+    assert status == 200
+
+    assert data[0]["movie_id"] == fake_movie_genre_data["movie_id"]
+    assert data[0]["genre_id"] == fake_movie_genre_data["genre_id"]
+    assert data[0]["title"] == fake_movie_genre_data["title"]
+    assert data[0]["year"] == fake_movie_genre_data["year"]
+    assert data[0]["description"] == fake_movie_genre_data["description"]
+    assert data[0]["time"] == fake_movie_genre_data["time"]
+    assert data[0]["rating"] == fake_movie_genre_data["rating"]
+    assert data[0]["vote"] == fake_movie_genre_data["vote"]
+    assert data[0]["revenue"] == fake_movie_genre_data["revenue"]
+    assert data[0]["metascore"] == fake_movie_genre_data["metascore"]
