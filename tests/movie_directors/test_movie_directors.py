@@ -104,7 +104,7 @@ def test_svc_get_all(mocker, fake_data):
 
 def test_svc_movie_directors_by_id(mocker, fake_movie_director_data, fields_payload, fake_id, fake_data):
     """
-    test service to return director and movie data by movie_id
+    test service to return director and movie data by director_id
     """
     # Mock `doQuery` to return data
     mocker_sql = mocker.patch.object(service, "doQuery")
